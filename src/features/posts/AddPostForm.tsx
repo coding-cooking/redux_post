@@ -2,9 +2,11 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewPost } from "./postsSlice";
 import { selectAllUsers } from "../users/usersSlice";
+import { UserProps } from "../users/usersSlice";
+import { AppDispatch } from "app/store";
 
 const AddPostForm = () => {
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
 	const [userId, setUserId] = useState("");
@@ -12,9 +14,9 @@ const AddPostForm = () => {
 
 	const users = useSelector(selectAllUsers);
 
-	const onTitleChanged = (e) => setTitle(e.target.value);
-	const onContentChanged = (e) => setContent(e.target.value);
-	const onAuthorChanged = (e) => setUserId(e.target.value);
+	const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
+	const onContentChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value);
+	const onAuthorChanged = (e: React.ChangeEvent<HTMLSelectElement>) => setUserId(e.target.value);
 
 	const canSave = [title, content, userId].every(Boolean) && addRequestStatus === 'idle';
 
@@ -35,7 +37,7 @@ const AddPostForm = () => {
 		}
 	};
 
-	const usersOptions = users.map((user) => (
+	const usersOptions = users.map((user: UserProps) => (
 		<option key={user.id} value={user.id}>
 			{user.name}
 		</option>

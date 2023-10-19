@@ -1,7 +1,8 @@
 import { useDispatch } from "react-redux";
 import { reactionAdded } from "./postsSlice";
+import { PostProps } from "./postsSlice";
 
-const reactionEmoji = {
+export const reactionEmoji = {
 	thumbsUp: '👍',
 	wow: '😊',
 	heart: '❤️',
@@ -9,7 +10,9 @@ const reactionEmoji = {
 	coffee: '☕️',
 };
 
-const ReactionButtons = ({post}) => {
+
+
+const ReactionButtons = ({ post }: { post: PostProps }) => {
 	const dispatch = useDispatch();
 
 	const reactionButtons = Object.entries(reactionEmoji).map(([name, emoji]) => {

@@ -1,8 +1,9 @@
 import PostAuthor from "./PostAuthor";
 import TimeAgo from "./TimeAgo";
 import ReactionButtons from "./ReactionButtons";
+import { PostProps } from "./postsSlice";
 
-const PostsExcerpt = ({ post }) => {
+const PostsExcerpt = ({ post }: { post: PostProps }) => {
 	return (
 		<article>
 			<h3>{post.title}</h3>

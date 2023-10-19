@@ -9,7 +9,7 @@ import { fetchUsers } from './features/users/usersSlice';
 store.dispatch(fetchUsers());
 
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
 	<React.StrictMode>
 		<Provider store={store}>

@@ -6,7 +6,6 @@ function App() {
     <main className="App">
       <AddPostForm />
       <PostsList />
-
     </main>
   );
 }

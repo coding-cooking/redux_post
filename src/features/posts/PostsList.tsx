@@ -7,9 +7,11 @@ import {
 } from "./postsSlice";
 import { useEffect } from "react";
 import PostsExcerpt from "./PostsExcerpt";
+import { RootState, AppDispatch } from "app/store";
+import { PostProps } from "./postsSlice";
 
 const PostsList = () => {
-	const dispatch = useDispatch();
+	const dispatch: AppDispatch = useDispatch();
 
 	const posts = useSelector(selectAllPosts);
 
@@ -29,8 +31,8 @@ const PostsList = () => {
 	} else if (postsStatus === "succeeded") {
 		const orderedPosts = posts
 			.slice()
-			.sort((a, b) => b.date.localeCompare(a.date));
-		content = orderedPosts.map((post) => (
+			.sort((a: PostProps, b: PostProps) => b.date.localeCompare(a.date));
+		content = orderedPosts.map((post: PostProps) => (
 			<PostsExcerpt key={post.id} post={post} />
 		));
 	} else if (postsStatus === "failed") {
