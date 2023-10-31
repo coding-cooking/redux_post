@@ -4,9 +4,11 @@ import { addNewPost } from "./postsSlice";
 import { selectAllUsers } from "../users/usersSlice";
 import { UserProps } from "../users/usersSlice";
 import { AppDispatch } from "app/store";
+import { useNavigate } from "react-router-dom";
 
 const AddPostForm = () => {
 	const dispatch = useDispatch<AppDispatch>();
+	const navigate  = useNavigate();
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
 	const [userId, setUserId] = useState("");
@@ -29,6 +31,7 @@ const AddPostForm = () => {
 				setTitle("");
 				setContent("");
 				setUserId("");
+				navigate("/")
 			} catch (err) {
 				console.error("Failed to save the post", err);
 			} finally {
