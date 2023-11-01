@@ -3,7 +3,7 @@ import { selectAllUsers } from "../users/usersSlice";
 import { UserProps } from "../users/usersSlice";
 
 type PostAuthorProps = {
-	userId: string;
+	userId: number;
 }
 
 const PostAuthor = ({ userId }: PostAuthorProps ) => {

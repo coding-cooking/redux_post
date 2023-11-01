@@ -11,7 +11,7 @@ import { RootState, AppDispatch } from "app/store";
 import { PostProps } from "./postsSlice";
 
 const PostsList = () => {
-	const dispatch: AppDispatch = useDispatch();
+	// const dispatch: AppDispatch = useDispatch();
 
 	const posts = useSelector(selectAllPosts);
 
@@ -19,11 +19,11 @@ const PostsList = () => {
 
 	const error = useSelector(getPostsError);
 
-	useEffect(() => {
-		if (postsStatus === "idle") {
-			dispatch(fetchPosts());
-		}
-	}, [postsStatus, dispatch]);
+	// useEffect(() => {
+	// 	if (postsStatus === "idle") {
+	// 		dispatch(fetchPosts());
+	// 	}
+	// }, [postsStatus, dispatch]);
 
 	let content;
 	if (postsStatus === "loading") {

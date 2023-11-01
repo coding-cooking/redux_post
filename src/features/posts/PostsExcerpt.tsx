@@ -3,11 +3,12 @@ import TimeAgo from "./TimeAgo";
 import ReactionButtons from "./ReactionButtons";
 import { PostProps } from "./postsSlice";
 import { Link } from "react-router-dom";
+import React from "react";
 
 const PostsExcerpt = ({ post }: { post: PostProps }) => {
 	return (
 		<article>
-			<h2>{post.title}{post.id}</h2>
+			<h2>{post.title}</h2>
 			<p className="excerpt">{post.body.substring(0, 75)}</p>
 			<p className='postCredit'>
 				<Link to={`post/${post.id}`}>View Post</Link>
@@ -19,4 +20,4 @@ const PostsExcerpt = ({ post }: { post: PostProps }) => {
 	);
 };
 
-export default PostsExcerpt;
+export default React.memo(PostsExcerpt);

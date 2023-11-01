@@ -8,17 +8,17 @@ import { useNavigate } from "react-router-dom";
 
 const AddPostForm = () => {
 	const dispatch = useDispatch<AppDispatch>();
-	const navigate  = useNavigate();
-	const [title, setTitle] = useState("");
-	const [content, setContent] = useState("");
-	const [userId, setUserId] = useState("");
-	const [addRequestStatus, setAddRequestStatus] = useState('idle');
+	const navigate = useNavigate();
+	const [title, setTitle] = useState<string>("");
+	const [content, setContent] = useState<string>("");
+	const [userId, setUserId] = useState<number>();
+	const [addRequestStatus, setAddRequestStatus] = useState<string>('idle');
 
 	const users = useSelector(selectAllUsers);
 
 	const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
 	const onContentChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value);
-	const onAuthorChanged = (e: React.ChangeEvent<HTMLSelectElement>) => setUserId(e.target.value);
+	const onAuthorChanged = (e: React.ChangeEvent<HTMLSelectElement>) => setUserId(Number(e.target.value));
 
 	const canSave = [title, content, userId].every(Boolean) && addRequestStatus === 'idle';
 
@@ -30,7 +30,7 @@ const AddPostForm = () => {
 
 				setTitle("");
 				setContent("");
-				setUserId("");
+				setUserId(undefined);
 				navigate("/")
 			} catch (err) {
 				console.error("Failed to save the post", err);

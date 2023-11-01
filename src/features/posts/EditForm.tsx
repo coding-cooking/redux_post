@@ -10,7 +10,7 @@ const EditPostForm = () => {
     const { postId } = useParams()
     const navigate = useNavigate()
 
-    const post = useSelector((state: RootState) => selectPostById(state, postId))
+    const post = useSelector((state: RootState) => selectPostById(state, Number(postId)))
     const users = useSelector(selectAllUsers)
 
     const [title, setTitle] = useState(post?.title)
@@ -30,7 +30,7 @@ const EditPostForm = () => {
 
     const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)
     const onContentChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)
-    const onAuthorChanged = (e: React.ChangeEvent<HTMLSelectElement>) => setUserId(e.target.value)
+    const onAuthorChanged = (e: React.ChangeEvent<HTMLSelectElement>) => setUserId(Number(e.target.value))
 
     const canSave = [title, content, userId].every(Boolean) && requestStatus === 'idle';
 
@@ -42,7 +42,7 @@ const EditPostForm = () => {
 
                 setTitle('')
                 setContent('')
-                setUserId('')
+                setUserId(undefined)
                 navigate(`/post/${postId}`)
             } catch (err) {
                 console.error('Failed to save the post', err)
@@ -66,7 +66,7 @@ const EditPostForm = () => {
 
             setTitle('')
             setContent('')
-            setUserId('')
+            setUserId(undefined)
             navigate('/')
         } catch (err) {
             console.error('Failed to delete the post', err)

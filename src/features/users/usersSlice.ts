@@ -5,7 +5,7 @@ import { RootState } from "app/store";
 const USERS_URL = "https://jsonplaceholder.typicode.com/users";
 
 export type UserProps = {
-	id: string;
+	id: number;
 	name: string,
 	username: string,
 	email: string,
@@ -47,4 +47,7 @@ const userSlice = createSlice({
 });
 
 export const selectAllUsers = (state: RootState) => state.users;
+
+export const selectUserById = (state: RootState, userId: number | undefined) =>state.users.find(user => user.id === userId);
+
 export default userSlice.reducer;
