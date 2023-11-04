@@ -1,18 +1,17 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addNewPost } from "./postsSlice";
+import { useSelector } from "react-redux";
 import { selectAllUsers } from "../users/usersSlice";
 import { UserProps } from "../users/usersSlice";
 import { AppDispatch } from "app/store";
 import { useNavigate } from "react-router-dom";
+import { useAddNewPostMutation } from "./postsSlice";
 
 const AddPostForm = () => {
-	const dispatch = useDispatch<AppDispatch>();
+	const [addNewPost, {isLoading}] = useAddNewPostMutation();
 	const navigate = useNavigate();
 	const [title, setTitle] = useState<string>("");
 	const [content, setContent] = useState<string>("");
 	const [userId, setUserId] = useState<number>();
-	const [addRequestStatus, setAddRequestStatus] = useState<string>('idle');
 
 	const users = useSelector(selectAllUsers);
 
@@ -20,13 +19,12 @@ const AddPostForm = () => {
 	const onContentChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value);
 	const onAuthorChanged = (e: React.ChangeEvent<HTMLSelectElement>) => setUserId(Number(e.target.value));
 
-	const canSave = [title, content, userId].every(Boolean) && addRequestStatus === 'idle';
+	const canSave = [title, content, userId].every(Boolean) && !isLoading;
 
-	const onSavePostClicked = () => {
+	const onSavePostClicked = async () => {
 		if (canSave) {
 			try {
-				setAddRequestStatus("pending");
-				dispatch(addNewPost({ title, body: content, userId })).unwrap();
+				await addNewPost({ title, body: content, userId }).unwrap();
 
 				setTitle("");
 				setContent("");
@@ -34,9 +32,7 @@ const AddPostForm = () => {
 				navigate("/")
 			} catch (err) {
 				console.error("Failed to save the post", err);
-			} finally {
-				setAddRequestStatus("idle");
-			}
+			} 
 		}
 	};
 
